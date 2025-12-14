@@ -65,7 +65,7 @@ function Welcomepage() {
               <source src="/video/bhahubali.mp4" type="video/mp4" />
             </video>
             <div className="carousel-caption">
-        <h1>Bhahubali</h1>
+        <h1>Baahubali</h1>
         <p>The story of a young man uncovering his royal lineage and his fight against tyranny. A visual spectacle with breathtaking sets and epic battles.</p>
         <p>2015 | Action, Drama | Telugu</p>
         <Link to ="movies/6932f2ceb755f627a952dab6">

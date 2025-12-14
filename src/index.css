@@ -1,0 +1,35 @@
+:root{
+  --transition: 200ms ease-in-out;
+  --accent: #ff8a00;
+  /* Dark theme (only mode) */
+  --bg: #000000;
+  --text: #ffffff;
+  --nav-bg: #000000;
+  --nav-text: #ffffff;
+  --card-border: #ffffff;
+  --box-bg: #000000;
+  --btn-bg: #ffffff;
+  --btn-text: #000000;
+  --search-border: #ffffff;
+  --muted: #94a3b8;
+}
+
+/* Base styles applied to the document */
+html {
+  font-size: 16px;
+}
+
+body {
+  height: 100%;          
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+/* Smooth transitions for common elements */
+*{
+  box-sizing: border-box;
+}

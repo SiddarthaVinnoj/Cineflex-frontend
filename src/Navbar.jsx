@@ -15,22 +15,10 @@ function Navbar({ onSearch }) {
     
     updateUser(); // Initial load
     
-    // Listen for storage changes
-    const handleStorageChange = (e) => {
-      if (e.key === 'user') {
-        updateUser();
-      }
-    };
+    // Force update every 500ms to catch login changes
+    const interval = setInterval(updateUser, 500);
     
-    window.addEventListener('storage', handleStorageChange);
-    
-    // Also check periodically for login changes
-    const interval = setInterval(updateUser, 1000);
-    
-    return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   const handleLogout = () => {

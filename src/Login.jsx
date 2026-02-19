@@ -18,6 +18,10 @@ function Login() {
         password,
       });
 
+      // store token and user info (including isAdmin)
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+      }
       localStorage.setItem("user", JSON.stringify(res.data.user));
       alert(res.data.message);
       navigate("/");

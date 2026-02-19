@@ -8,6 +8,7 @@ function Navbar({ onSearch }) {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
     navigate('/');
     window.location.reload();
   };
@@ -45,7 +46,11 @@ function Navbar({ onSearch }) {
               </Link>
             )}
           </div>
-          
+          {user && user.isAdmin && (
+
+            
+            <Link to="/admin" className="nav-item-link admin-link">Admin</Link>
+          )}
           <Link to="/favorites" className="favorites-link">
             ❤️
           </Link>

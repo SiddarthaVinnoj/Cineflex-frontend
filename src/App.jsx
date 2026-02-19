@@ -17,6 +17,7 @@ import TermsOfUse from './Termsofuse'
 import PrivacyPolicy from './Privacy'
 import Support from './Support'
 import Faq from './Faq'
+import Admin from './Admin'
 function App() {
   return (
    <Routes>
@@ -33,6 +34,7 @@ function App() {
   <Route path='/privacy' element={<PrivacyPolicy />} />
   <Route path='/support' element={<Support />} />
   <Route path='/faq' element={<Faq />} />
+  <Route path='/admin' element={<Admin />} />
   {/* Single Movie Pages */}
   <Route path='/movies/:id' element={<Watch />} />
   <Route path='/webseries/:id' element={<Webwatch />} />

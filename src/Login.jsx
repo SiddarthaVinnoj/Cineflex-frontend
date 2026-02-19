@@ -18,15 +18,23 @@ function Login() {
         password,
       });
 
+      console.log('Login response:', res.data); // Debug log
+
       // store token and user info (including isAdmin)
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
+        console.log('Token saved:', res.data.token); // Debug log
+      } else {
+        console.error('No token in response:', res.data);
       }
       localStorage.setItem("user", JSON.stringify(res.data.user));
+      console.log('User saved:', res.data.user); // Debug log
+      
       alert(res.data.message);
       navigate("/");
       window.location.reload(); // refresh navbar
     } catch (error) {
+      console.error('Login error:', error); // Debug log
       alert(error.response?.data?.message || "Login failed");
     }
   };

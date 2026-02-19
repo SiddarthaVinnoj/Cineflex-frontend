@@ -1,14 +1,42 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 function Navbar({ onSearch }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('user'));
+
+  // Update user state when localStorage changes
+  useEffect(() => {
+    const updateUser = () => {
+      const userData = JSON.parse(localStorage.getItem('user'));
+      setUser(userData);
+    };
+    
+    updateUser(); // Initial load
+    
+    // Listen for storage changes
+    const handleStorageChange = (e) => {
+      if (e.key === 'user') {
+        updateUser();
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also check periodically for login changes
+    const interval = setInterval(updateUser, 1000);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
+    setUser(null);
     navigate('/');
     window.location.reload();
   };

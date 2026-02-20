@@ -1,16 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({ onSearch }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
-  // ✅ Directly get user from localStorage
-  const user = JSON.parse(localStorage.getItem("user"));
+  // Update user state when localStorage changes
+  useEffect(() => {
+    const updateUser = () => {
+      const userData = JSON.parse(localStorage.getItem('user'));
+      console.log('Navbar: Updating user state with:', userData); // Debug
+      setUser(userData);
+    };
+    
+    updateUser(); // Initial load
+    
+    // Listen for storage events from other tabs
+    const handleStorageChange = (e) => {
+      if (e.key === 'user' || e.key === null) {
+        updateUser();
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also check periodically for login changes
+    const interval = setInterval(updateUser, 1000);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, []);
+
+  // Force update on every render (temporary fix)
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem('user'));
+    if (userData && userData.isAdmin !== user?.isAdmin) {
+      setUser(userData);
+    }
+  });
 
   const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+    setUser(null);
     navigate("/");
     window.location.reload(); // optional but safe
   };
